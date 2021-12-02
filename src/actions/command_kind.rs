@@ -3,6 +3,7 @@ pub enum CommandKind {
     Cmd,
     Delete,
     Exit,
+    Help,
     None,
     Unknown,
 }
@@ -13,6 +14,7 @@ impl CommandKind {
             "cmd" => CommandKind::Cmd,
             "delete_agent" => CommandKind::Delete,
             "exit_agent" => CommandKind::Exit,
+            "help" => CommandKind::Help,
             "" => CommandKind::None,
             _ => CommandKind::Unknown,
         }
