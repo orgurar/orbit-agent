@@ -7,5 +7,8 @@ authors = ["Or Gur Arie <orgurar@gmail.com>"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+gethostname = "0.2.1"
+os_info = "3"
+whoami = "1.2.1"
 winapi = {version = "0.3", features = ["wincon", "winuser"]}
 winreg = "0.6.0"
