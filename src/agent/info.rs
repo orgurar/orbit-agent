@@ -10,13 +10,13 @@ pub struct Info {
 }
 
 impl Info {
-    pub fn collect() -> Info {
+    pub fn collect() -> Self {
         let hostname = agent::utils::hostname();
         let username = agent::utils::username();
         let win_version = agent::utils::win_version();
         let is_vm = agent::utils::on_vm();
 
-        Info {
+        Self {
             hostname,
             username,
             win_version,

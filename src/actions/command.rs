@@ -19,14 +19,14 @@ impl Command {
     }
 
     // create a new command from a server message
-    pub fn from_server(content: String) -> Command {
+    pub fn from_server(content: String) -> Self {
         // split by first word (command identifier)
         let v: Vec<&str> = content.split_whitespace().collect();
         let command_id = v.get(0);
 
         // if v is empty
         if let None = command_id {
-            return Command {
+            return Self {
                 kind: CommandKind::None,
                 content: String::new(),
             };
@@ -39,7 +39,7 @@ impl Command {
         // get command's content
         let content = v[1..].join(" ");
 
-        Command { kind, content }
+        Self { kind, content }
     }
 
     // execute command

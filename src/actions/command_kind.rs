@@ -9,14 +9,14 @@ pub enum CommandKind {
 }
 
 impl CommandKind {
-    pub fn parse_kind(s: &String) -> CommandKind {
+    pub fn parse_kind(s: &String) -> Self {
         match s.as_str() {
-            "cmd" => CommandKind::Cmd,
-            "delete_agent" => CommandKind::Delete,
-            "exit_agent" => CommandKind::Exit,
-            "help" => CommandKind::Help,
-            "" => CommandKind::None,
-            _ => CommandKind::Unknown,
+            "cmd" => Self::Cmd,
+            "delete_agent" => Self::Delete,
+            "exit_agent" => Self::Exit,
+            "help" => Self::Help,
+            "" => Self::None,
+            _ => Self::Unknown,
         }
     }
 }
