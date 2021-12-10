@@ -35,8 +35,8 @@ pub fn delete_agent() -> ! {
 
 // close agent
 pub fn exit() -> ! {
-    // exit with 0x0100 (256) exit code
-    process::exit(0x0100);
+    // exit with success (0) exit code
+    process::exit(0);
 }
 
 pub fn help() -> Result<String, io::Error> {
