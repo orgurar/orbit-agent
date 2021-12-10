@@ -10,12 +10,16 @@ fn main() -> ! {
     // run agent with a reconnection loop
     loop {
         if let Err(e) = orbit_agent::run() {
-            // send error to the server, then start the agent again
-            eprintln!("Error has occured, gracefully stopping agent.");
-            eprintln!("{}", e);
+            // recieve the error, and print if in debug mode
+            if cfg!(debug_assertions) {
+                eprintln!("Error has occured, gracefully stopping agent.");
+                eprintln!("{}", e);
+            }
 
             // sleep for a given amount of time, the reconnect
+            #[cfg(debug_assertions)]
             eprintln!("Trying to reconnect in {} seconds...", reconnect::DELAY);
+            
             thread::sleep(Duration::from_millis(reconnect::DELAY));
             continue;
         }
