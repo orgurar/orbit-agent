@@ -1,7 +1,6 @@
 use crate::agent;
 
 // a struct that will represent the agent's initial info about the hosting system
-#[derive(Debug)]
 pub struct Info {
     hostname: String,
     username: String,
