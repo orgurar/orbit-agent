@@ -1,4 +1,8 @@
 // utils for agent's info gathering
+
+use std::env;
+use std::path::PathBuf;
+
 pub fn hostname() -> String {
     let hostname = gethostname::gethostname()
         .into_string()
@@ -18,6 +22,13 @@ pub fn win_version() -> String {
     let win_version: String = format!("{}", win_version);
 
     win_version
+}
+
+pub fn curr_path() -> String {
+    let curr_exe_path = env::current_dir().unwrap_or(PathBuf::from("Unable to read current directory"));
+    let curr_path = curr_exe_path.to_str().unwrap().to_string();
+
+    curr_path
 }
 
 pub fn on_vm() -> bool {

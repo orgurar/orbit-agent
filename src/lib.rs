@@ -26,7 +26,7 @@ pub fn setup() {
 pub fn run() -> Result<(), Box<dyn Error>> {
     // gathering host system's initial information
     let agent_info = Info::collect();
-    let agent_info = agent_info.as_string();
+    let agent_info = serde_json::to_string(&agent_info).unwrap();
 
     orbit_debug!("Gathered Machine's Info:\n{}", agent_info);
 
