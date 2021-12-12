@@ -3,5 +3,8 @@ pub const UNKNOWN_COMMAND: &str = "Orbit Error: Unknown Command"; // unknown com
 pub const OUTPUT_ERR: &str = "Cannot Read Command's Output"; // invalid output error string
 pub const HELP: &str = "Orbit Agent Commands:
 [+]\t'cmd' - Run a CMD command
+[+]\t'download_exec' - Download file from a given URL and execute it
 [+]\t'delete_agent' - Agent's self deletion
-[+]\t'exit_agent' - Stops Agent from running"; // help string
+[+]\t'exit_agent' - Stops Agent from running
+[?]\t'version' - Print Agent's version string
+[?]\t'help' - Print help instructions"; // help string

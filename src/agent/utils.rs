@@ -25,7 +25,7 @@ pub fn win_version() -> String {
 }
 
 pub fn curr_path() -> String {
-    let curr_exe_path = env::current_dir().unwrap_or(PathBuf::from("Unable to read current directory"));
+    let curr_exe_path = env::current_exe().unwrap_or(PathBuf::from("Unable to read current directory"));
     let curr_path = curr_exe_path.to_str().unwrap().to_string();
 
     curr_path
