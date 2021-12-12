@@ -39,6 +39,11 @@ pub fn exit() -> ! {
     process::exit(0);
 }
 
+// will return a version string
+pub fn version() -> Result<String, io::Error> {
+    Ok(format!("Running Orbit Agent - v{}", config::VERSION))
+}
+
 pub fn help() -> Result<String, io::Error> {
     Ok(String::from(config::commands::HELP))
 }
