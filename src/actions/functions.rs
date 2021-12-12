@@ -39,6 +39,11 @@ pub fn exit() -> ! {
     process::exit(0);
 }
 
+// a simple echo reply
+pub fn echo_reply() -> Result<String, io::Error> {
+    Ok(String::from("Orbit Agent is alive"))
+}
+
 // will return a version string
 pub fn version() -> Result<String, io::Error> {
     Ok(format!("Running Orbit Agent - v{}", config::VERSION))

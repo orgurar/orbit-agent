@@ -6,5 +6,6 @@ pub const HELP: &str = "Orbit Agent Commands:
 [+]\t'download_exec' - Download file from a given URL and execute it
 [+]\t'delete_agent' - Agent's self deletion
 [+]\t'exit_agent' - Stops Agent from running
+[?]\t'echo' - check if a certain agent is alive
 [?]\t'version' - Print Agent's version string
 [?]\t'help' - Print help instructions"; // help string
